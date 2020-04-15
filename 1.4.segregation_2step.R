@@ -50,17 +50,16 @@ setwd("D:/Drive - Taina/Doc/Analysis/")
 
 #### Replication codes ####
 
-states <- c("PR","RJ","SP","BA","CE")[-4]
+states <- c("PR","RJ","SP","CE")
 
-st_codes <- c("41","33","35","29","23")[-4]
+st_codes <- c("41","33","35","23")
 
-cd_metro <- c("4106902","3304557","3550308","2927408","2304400")[-4]
+cd_metro <- c("4106902","3304557","3550308","2304400")
 
 crs_utm <- c("+proj=utm +zone=22 +datum=WGS84 +units=m +ellps=WGS84 +towgs84=0,0,0",
              "+proj=utm +zone=23 +datum=WGS84 +units=m +ellps=WGS84 +towgs84=0,0,0",
              "+proj=utm +zone=23 +datum=WGS84 +units=m +ellps=WGS84 +towgs84=0,0,0",
-             "+proj=utm +zone=24 +datum=WGS84 +units=m +ellps=WGS84 +towgs84=0,0,0",
-             "+proj=utm +zone=23 +datum=WGS84 +units=m +ellps=WGS84 +towgs84=0,0,0")[-4]
+             "+proj=utm +zone=23 +datum=WGS84 +units=m +ellps=WGS84 +towgs84=0,0,0")
 setwd("D:/Drive - Taina/Doc/Analysis/")
 
 
@@ -116,13 +115,11 @@ zoom_x <- function(state){
   zoom_x <- case_when(state == "pr" ~ c(-49.55,-49.05),
                       state == "sp" ~ c(-47.0,-46.17),
                       state == "rj" ~ c(-43.8,-42.85),
-                      state == "ba" ~ c(-38.63,-38.05),
                       state == "ce" ~ c(-38.77,-38.3))}
 zoom_y <- function(state){
   zoom_y <- case_when(state == "pr" ~ c(-25.68,-25.25),
                       state == "sp" ~ c(-23.87,-23.27),
                       state == "rj" ~ c(-23.1,-22.6),
-                      state == "ba" ~ c(-13.01,-12.6),
                       state == "ce" ~ c(-4.05,-3.65))}
 
 # Scale bar zoom
@@ -130,7 +127,6 @@ bar_scale <- function(state){
   bar_scale <- case_when(state == "pr" ~ 5,
                          state == "sp" ~ 10,
                          state == "rj" ~ 7,
-                         state == "ba" ~ 5,
                          state == "ce" ~ 5)}
 
 # Subtitle position
@@ -138,14 +134,12 @@ pos_legend <- function(state){
   pos_legend <- case_when(state == "pr" ~ c(0.73, 0.13),
                           state == "sp" ~ c(0.73, 0.13),
                           state == "rj" ~ c(0.73, 0.15),
-                          state == "ba" ~ c(0.73,0.13),
                           state == "ce" ~ c(0.73,0.13))}
 
 pos_legend2 <- function(state){
   pos_legend <- case_when(state == "pr" ~ c(0.79, 0.13),
                           state == "sp" ~ c(0.79, 0.13),
                           state == "rj" ~ c(0.79, 0.15),
-                          state == "ba" ~ c(0.79,0.13),
                           state == "ce" ~ c(0.79,0.13))}
 
 # Map for numeric variables
@@ -317,7 +311,7 @@ for(state in states){
   
   }
 
-#### Comparação de Medianas ####
+#### Median comparison ####
 
 Mediantest <- function(st,vr,sz,gr){
   
