@@ -50,17 +50,17 @@ setwd("D:/Drive - Taina/Doc/Analysis/")
 
 #### Replication codes ####
 
-states <- c("PR","RJ","SP","BA","CE")[-4]
+states <- c("PR","RJ","SP","CE")
 
-st_codes <- c("41","33","35","29","23")[-4]
+st_codes <- c("41","33","35","23")
 
-cd_metro <- c("4106902","3304557","3550308","2927408","2304400")[-4]
+cd_metro <- c("4106902","3304557","3550308","2304400")
 
 crs_utm <- c("+proj=utm +zone=22 +datum=WGS84 +units=m +ellps=WGS84 +towgs84=0,0,0",
              "+proj=utm +zone=23 +datum=WGS84 +units=m +ellps=WGS84 +towgs84=0,0,0",
              "+proj=utm +zone=23 +datum=WGS84 +units=m +ellps=WGS84 +towgs84=0,0,0",
-             "+proj=utm +zone=24 +datum=WGS84 +units=m +ellps=WGS84 +towgs84=0,0,0",
-             "+proj=utm +zone=23 +datum=WGS84 +units=m +ellps=WGS84 +towgs84=0,0,0")[-4]
+             "+proj=utm +zone=23 +datum=WGS84 +units=m +ellps=WGS84 +towgs84=0,0,0")
+
 setwd("D:/Drive - Taina/Doc/Analysis/")
 
 #### Employement statistics ####
@@ -92,7 +92,6 @@ for(city in cities){
 }
 
 employment
-
 
 #### Jobs ####
 
@@ -446,33 +445,12 @@ medians %>%
 
 ggsave("med_access_120_hex500.jpeg",device = "jpeg",path = "Outputs/Graphics",dpi = 600)
 
-
+# Greater inequalities among groups
 read.csv("Outputs/CSV/acess_medians_2step.csv") %>%
   mutate(amp = hi_wh - lo_bl,
          dif = (hi_wh - hi_bl) + (hi_bl - md_wh) + (md_wh - md_bl) + (md_bl - lo_wh) + (lo_wh - lo_bl)) %>%
   group_by(state,cell_size) %>%
   filter(amp == max(amp))
-
-#### Ginis ####
-access_ginis <- function(state,size){
-  
-  gini <-  st_read(paste0("Outputs/Shapefiles/",tolower(state),"_hex",size,"_access_2step.shp")) %>%
-    mutate_at(c("hi_wh","hi_bl","md_wh","md_bl","lo_wh","lo_bl","pop"),~round(.,digits = 0)) %>%
-    st_set_geometry(NULL) %>%
-    filter(!is.na(jobs_30_p)) %>%
-    filter(pop != 0) %>%
-    mutate(pop = round(pop,0)) %>%
-    expandRows("pop")
-  rel_gini <- gini %>% summarise_at(c("jobs_30","jobs_45","jobs_60","jobs_90","jobs_120"),~(p = ineq::Gini(.))) %>% mutate(variable = "rel_gini")
-  abs_gini <- gini %>% summarise_at(c("jobs_30","jobs_45","jobs_60","jobs_90","jobs_120"),~(p = ineq::Gini(.)*mean(.,na.rm=T))) %>% mutate(variable = "abs_gini")
-  abs_gini_p <- gini %>% summarise_at(c("jobs_30_p","jobs_45_p","jobs_60_p","jobs_90_p","jobs_120_p"),~(p = ineq::Gini(.)*mean(.,na.rm=T))) %>% mutate(variable = "abs_gini_p")
-  colnames(abs_gini_p) <-c("jobs_30","jobs_45","jobs_60","jobs_90","jobs_120","variable")
-  gini <- rbind(rel_gini,abs_gini,abs_gini_p) %>% as.data.frame() %>% mutate(cell_size = size,state = state)
-  return(gini)
-  }
-
-tibble(state = rep(states,each = 4), size = rep(c("500","1000","2500","5000"),4)) %>% pmap_df(access_ginis) %>% write_csv("Outputs/CSV/access_gini_2step.csv")
-
 
 #### Maps ####
 
@@ -500,13 +478,11 @@ zoom_x <- function(state){
   zoom_x <- case_when(state == "pr" ~ c(-49.55,-49.05),
                       state == "sp" ~ c(-47.0,-46.17),
                       state == "rj" ~ c(-43.8,-42.85),
-                      state == "ba" ~ c(-38.63,-38.05),
                       state == "ce" ~ c(-38.77,-38.3))}
 zoom_y <- function(state){
   zoom_y <- case_when(state == "pr" ~ c(-25.68,-25.25),
                       state == "sp" ~ c(-23.87,-23.27),
                       state == "rj" ~ c(-23.1,-22.6),
-                      state == "ba" ~ c(-13.01,-12.6),
                       state == "ce" ~ c(-4.05,-3.65))}
 
 # Scale bar zoom
@@ -514,7 +490,6 @@ bar_scale <- function(state){
   bar_scale <- case_when(state == "pr" ~ 5,
                          state == "sp" ~ 10,
                          state == "rj" ~ 7,
-                         state == "ba" ~ 5,
                          state == "ce" ~ 5)}
 
 # Subtitle position
@@ -522,14 +497,12 @@ pos_legend <- function(state){
   pos_legend <- case_when(state == "pr" ~ c(0.73, 0.13),
                           state == "sp" ~ c(0.73, 0.13),
                           state == "rj" ~ c(0.73, 0.15),
-                          state == "ba" ~ c(0.73,0.13),
                           state == "ce" ~ c(0.73,0.13))}
 
 pos_legend2 <- function(state){
   pos_legend <- case_when(state == "pr" ~ c(0.79, 0.13),
                           state == "sp" ~ c(0.79, 0.13),
                           state == "rj" ~ c(0.79, 0.15),
-                          state == "ba" ~ c(0.79,0.13),
                           state == "ce" ~ c(0.79,0.13))}
 
 # Map for numeric variables
@@ -614,7 +587,7 @@ PlotMap <- function(base,state,variable,name_variable) {
   return(map)
 }
 
-# Map for routes frequencies
+# Map for LISA
 PlotMap2 <- function(base,state,variable,name_variable) {
   
   breaks <- c(0,1,2,3,4)
@@ -711,14 +684,7 @@ for(state in states){
   
 }
 
-#### Small corrections ####
-#st_read("Outputs/Shapefiles/pr_hex500_access.shp") %>% filter(GEO_ID != "15601") %>% st_write("Outputs/Shapefiles/pr_hex500_access.shp",delete_layer=T)
-#st_read("Outputs/Shapefiles/rj_hex500_access.shp") %>% filter(GEO_ID != "20120") %>% st_write("Outputs/Shapefiles/rj_hex500_access.shp",delete_layer=T)
-#st_read("Outputs/Shapefiles/sp_hex500_access.shp") %>% filter(GEO_ID != "28508") %>% st_write("Outputs/Shapefiles/sp_hex500_access.shp",delete_layer=T)
-#st_read("Outputs/Shapefiles/ce_hex500_access.shp") %>% filter(GEO_ID != "9936") %>% st_write("Outputs/Shapefiles/ce_hex500_access.shp",delete_layer=T)
-
-
-#### Comparação de Medianas ####
+#### Medians comparison ####
 
 Mediantest <- function(st,vr,sz,gr){
   
@@ -738,17 +704,3 @@ tibble(st = rep(rep(c("SP","RJ","PR","CE"),each=24),5),
                          gr = rep(c("hi_wh","hi_bl","md_wh","md_bl","lo_wh","lo_bl"),16*5)) %>%
   pmap_df(Mediantest) %>% write.csv("Outputs/CSV/medians_access.csv")
 
-
-#### Stats ####
-
-state <- "CE"
-
-hex <- st_read(paste0("Outputs/Shapefiles/",tolower(state),"_hex500_access_2step.shp")) %>% st_drop_geometry()
-breaks <- c(0,0.2,0.4,0.6,0.8,1,1.5,100)
-hex$breaks <- cut(hex$jobs_45,breaks = breaks,include.lowest = TRUE,labels = breaks[2:8])
-hex <- hex %>% mutate(workers = hi_wh+hi_bl+md_wh+md_bl+lo_wh+lo_bl) %>%
-  filter(jobs_45>0)
-
-
-hex %>% group_by(breaks) %>% summarise(workers = sum(workers)) %>%
-  mutate(perc = 100*workers/sum(workers))
