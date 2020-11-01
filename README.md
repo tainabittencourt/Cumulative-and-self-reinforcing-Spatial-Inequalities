@@ -29,4 +29,4 @@ Script to:
 (i) create plots and maps related to the interaction of segregation and accessibility after GEODA processing.
 
 
-Big thanks for all GitHib pages which contributed to the scripts used in this project, particularly Rafael Pereira (https://github.com/rafapereirabr), Robin Lovelace (https://github.com/Robinlovelace) and all countless contributors of Stack Overflow.
+Big thanks for all GitHib pages which immensely contributed to the scripts used in this project, particularly Rafael Pereira (https://github.com/rafapereirabr), Robin Lovelace (https://github.com/Robinlovelace) and all countless contributors of Stack Overflow.
