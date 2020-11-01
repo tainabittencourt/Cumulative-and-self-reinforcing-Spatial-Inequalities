@@ -3,7 +3,7 @@ R Scripts for Bittencourt, T. A., Giannotti, M. and Marques, E. (2020) ‘Cumula
 
 The codes presented in this directory are divided into 4 sections:
 
-0. Downloads
+1.0. Downloads
 Script to download and store sociodemographic data from 2010 Brazilian Census (Sample and Universe)
 
 1.1 Urban structure
