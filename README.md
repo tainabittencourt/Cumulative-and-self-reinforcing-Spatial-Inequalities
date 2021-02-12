@@ -3,10 +3,10 @@ R Scripts for Bittencourt, T. A., Giannotti, M. and Marques, E. (2020) ‘Cumula
 
 The codes presented in this directory are divided into 4 sections:
 
-1.0. Downloads
+1.0. Downloads:
 Script to download and store sociodemographic data from 2010 Brazilian Census (Sample and Universe)
 
-1.1 Urban structure
+1.1 Urban structure:
 Script to:
 (i) redefine metropolitan regions based on density and work trips;
 (ii) classify urban workers into occupational classes according to the EGP class scheme;
@@ -16,7 +16,7 @@ Script to:
 (vi) calculate urban inequality and segregation indices;
 (vii) create urban occupation maps
 
-1.2 Accessibility
+1.2 Accessibility:
 Script to:
 (i) get employment data from the Brazilian Ministry of Economy;
 (ii) prepare data for Google Earth geocoding by postal code and distribute the jobs into the hexagonal grid;
@@ -24,7 +24,7 @@ Script to:
 (iv) calculate median levels of accessibility for each social group (class and race);
 (v) create accessibility maps
 
-1.3 Segregation 
+1.3 Segregation: 
 Script to:
 (i) create plots and maps related to the interaction of segregation and accessibility after GEODA processing.
 
