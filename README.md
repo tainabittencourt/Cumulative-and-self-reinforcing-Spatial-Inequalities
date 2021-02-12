@@ -7,17 +7,17 @@ The codes presented in this directory are divided into 4 sections:
 Script to download and store sociodemographic data from 2010 Brazilian Census (Sample and Universe)
 
 1.1 Urban structure:
-Script to:
-(i) redefine metropolitan regions based on density and work trips;
-(ii) classify urban workers into occupational classes according to the EGP class scheme;
-(iii) group occupational classes into 3 social groups based on cluster analysis;
-(iv) perform spatial microssimulation to estimate class and race data at the census tract level;
-(v) create hexagonal urban grid and reallocate census tract data;
-(vi) calculate urban inequality and segregation indices;
-(vii) create urban occupation maps
+Script to
+*(i) redefine metropolitan regions based on density and work trips;
+*(ii) classify urban workers into occupational classes according to the EGP class scheme;
+*(iii) group occupational classes into 3 social groups based on cluster analysis;
+*(iv) perform spatial microssimulation to estimate class and race data at the census tract level;
+*(v) create hexagonal urban grid and reallocate census tract data;
+*(vi) calculate urban inequality and segregation indices;
+*(vii) create urban occupation maps
 
 1.2 Accessibility:
-Script to:
+Script to
 (i) get employment data from the Brazilian Ministry of Economy;
 (ii) prepare data for Google Earth geocoding by postal code and distribute the jobs into the hexagonal grid;
 (iii) calculate 2-step accessibility levels for multiple grid sizes;
@@ -25,7 +25,7 @@ Script to:
 (v) create accessibility maps
 
 1.3 Segregation: 
-Script to:
+Script to
 (i) create plots and maps related to the interaction of segregation and accessibility after GEODA processing.
 
 
