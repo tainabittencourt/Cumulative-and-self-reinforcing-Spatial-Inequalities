@@ -8,13 +8,13 @@ Script to download and store sociodemographic data from 2010 Brazilian Census (S
 
 1.1 Urban structure:
 Script to
-*(i) redefine metropolitan regions based on density and work trips;
-*(ii) classify urban workers into occupational classes according to the EGP class scheme;
-*(iii) group occupational classes into 3 social groups based on cluster analysis;
-*(iv) perform spatial microssimulation to estimate class and race data at the census tract level;
-*(v) create hexagonal urban grid and reallocate census tract data;
-*(vi) calculate urban inequality and segregation indices;
-*(vii) create urban occupation maps
+(i) redefine metropolitan regions based on density and work trips;
+(ii) classify urban workers into occupational classes according to the EGP class scheme;
+(iii) group occupational classes into 3 social groups based on cluster analysis;
+(iv) perform spatial microssimulation to estimate class and race data at the census tract level;
+(v) create hexagonal urban grid and reallocate census tract data;
+(vi) calculate urban inequality and segregation indices;
+(vii) create urban occupation maps
 
 1.2 Accessibility:
 Script to
